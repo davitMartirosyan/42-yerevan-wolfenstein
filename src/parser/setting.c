@@ -6,7 +6,7 @@
 /*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 06:31:41 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/14 07:13:59 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/04/14 07:17:47 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,18 @@ void    put_textures(t_game *game, int i)
         game->west = ft_strdup(game->sdl[i]);
     else if (contains(game->sdl[i], "EA"))
         game->east = ft_strdup(game->sdl[i]);
+}
+
+char    *path(char *line)
+{
+    int     i;
+    char    *nav;
+    
+    i = ft_strlen(line) - 1;
+    while (i--)
+        if (ft_isspace(line[i]))
+            break;
+    return (line + i + 1);
 }
 
 int contains(char *source, char *find)
