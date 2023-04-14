@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 05:37:44 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/04/17 09:52:28 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/14 00:39:36 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "cub3d.h"
 
 char	*after(char *buffer)
 {
@@ -75,7 +75,7 @@ char	*read_line(int fd, char *buffer)
 	if (!buff)
 		return (NULL);
 	desc = 1;
-	while (desc != 0 && !ft_strchr(buffer, '\n'))
+	while (desc != 0 && !ft_strchr_(buffer, '\n'))
 	{
 		desc = read(fd, buff, BUFFER_SIZE);
 		if (desc == -1)

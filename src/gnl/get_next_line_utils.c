@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 06:25:08 by dmartiro          #+#    #+#             */
-/*   Updated: 2022/04/17 10:07:55 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/14 00:47:12 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "cub3d.h"
 
-char	*ft_strchr(const char *buffer, int ch)
+char	*ft_strchr_(const char *buffer, int ch)
 {
 	int	i;
 
@@ -26,16 +26,6 @@ char	*ft_strchr(const char *buffer, int ch)
 		i++;
 	}
 	return (0);
-}
-
-size_t	ft_strlen(const char *c)
-{
-	size_t	i;
-
-	i = 0;
-	while (c[i] && c[i] != '\0')
-		i++;
-	return (i);
 }
 
 char	*join(char *stat, char *buffer)

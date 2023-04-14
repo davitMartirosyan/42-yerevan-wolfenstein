@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/13 23:58:47 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/14 01:27:19 by tumolabs         ###   ########.fr       */
+/*   Created: 2023/04/14 00:26:10 by tumolabs          #+#    #+#             */
+/*   Updated: 2023/04/14 06:43:47 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int main(int ac, char **av)
+t_game  *init(void)
 {
     t_game  *game;
-    
-    if (ac < 2 || ac > 2)
+
+    game = malloc(sizeof(t_game));
+    game->player = malloc(sizeof(t_player));
+    if (!game || !game->player)
         failure();
-    game = init();
-    parser(game, av[1]);
+    game->map_h = 0;
+    game->map_w = 0;
+    game->floor_color = 0;
+    game->ceiling_color = 0;
+    game->north = 0;
+    game->south = 0;
+    game->west = 0;
+    game->east = 0;
+    game->news = 0;
+    game->colors = 0;
+    game->map = NULL;
+    return (game);
 }
-
-
-// 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
