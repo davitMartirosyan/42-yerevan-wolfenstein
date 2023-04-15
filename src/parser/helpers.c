@@ -1,36 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   setting.c                                          :+:      :+:    :+:   */
+/*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 06:31:41 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/14 07:17:47 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/04/15 18:45:15 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void    put_colors(t_game *game, int i)
-{
-    if (contains(game->sdl[i], "F"))
-        game->floor_color = rgb(game->sdl[i]);
-    else if (contains(game->sdl[i], "C"))
-        game->ceiling_color = rgb(game->sdl[i]);
-}
-
-void    put_textures(t_game *game, int i)
-{
-    if (contains(game->sdl[i], "NO"))
-        game->north = ft_strdup(game->sdl[i]);
-    else if (contains(game->sdl[i], "SO"))
-        game->south = ft_strdup(game->sdl[i]);    
-    else if (contains(game->sdl[i], "WE"))
-        game->west = ft_strdup(game->sdl[i]);
-    else if (contains(game->sdl[i], "EA"))
-        game->east = ft_strdup(game->sdl[i]);
-}
 
 char    *path(char *line)
 {
@@ -70,6 +50,26 @@ int contains(char *source, char *find)
     return (0);
 }
 
+void    put_colors(t_game *game, int i)
+{
+    if (contains(game->sdl[i], "F"))
+        game->floor_color = rgb(game->sdl[i]);
+    else if (contains(game->sdl[i], "C"))
+        game->ceiling_color = rgb(game->sdl[i]);
+}
+
+void    put_textures(t_game *game, int i)
+{
+    if (contains(game->sdl[i], "NO"))
+        game->north = ft_strdup(game->sdl[i]);
+    else if (contains(game->sdl[i], "SO"))
+        game->south = ft_strdup(game->sdl[i]);    
+    else if (contains(game->sdl[i], "WE"))
+        game->west = ft_strdup(game->sdl[i]);
+    else if (contains(game->sdl[i], "EA"))
+        game->east = ft_strdup(game->sdl[i]);
+}
+
 char    **create_map_buffer(char *filename)
 {
     int     fd;
@@ -94,32 +94,4 @@ char    **create_map_buffer(char *filename)
     free(buffer);
     close(fd);
     return (split);
-}
-
-char	*set_map(char *s1, int delimiter, char *s2)
-{
-	char	*arguments;
-	int		i;
-	int		c;
-
-	if (!s1 && !s2)
-		return (ft_strdup(""));
-	if (!s1)
-		return (ft_strdup(s2));
-	if (!s2)
-		return (ft_strdup(s1));
-	arguments = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 2));
-	if (!arguments)
-		return (NULL);
-	i = -1;
-	c = -1;
-	while (s1[++i])
-		arguments[i] = s1[i];
-	arguments[i++] = delimiter;
-	while (s2[++c])
-		arguments[i++] = s2[c];
-	arguments[i] = '\0';
-	free(s1);
-	s1 = 0;
-	return (arguments);
 }

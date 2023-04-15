@@ -1,0 +1,15 @@
+
+    int x, y;
+
+    y = 0;
+    while (y < game->map_h)
+    {
+        x = 0;
+        while (x < game->map_w)
+        {
+            printf("%d", game->mmap[y][x]);
+            x++;
+        }
+        y++;
+        printf("\n");
+    }

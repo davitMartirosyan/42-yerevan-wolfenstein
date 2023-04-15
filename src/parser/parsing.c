@@ -6,7 +6,7 @@
 /*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 23:58:24 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/14 07:18:02 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/04/15 19:47:53 by tumolabs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,15 @@ void    parser(t_game *game, char *filename)
 {
     game->sdl = create_map_buffer(filename);
     set_instances(game);
-    // set_matrix(game);
+    set_matrix(game);
 }
 
-void    set_instances(t_game *game)
+void    get_map_sizes(t_game *game, char **split)
 {
-    int i;
-
-    i = 0;
-    while (game->sdl[i])
+    while (split[game->map_h])
     {
-        if (contains(game->sdl[i], ".xpm"))
-        {
-            put_textures(game, i);
-            game->news++;
-        }
-        else if (contains(game->sdl[i], ","))
-        {
-            put_colors(game, i);
-            game->colors++;
-        }
-        else
-            game->map = set_map(game->map, '\n', game->sdl[i]);   
-        i++;
+        if (game->map_w < (int)ft_strlen(split[game->map_h]))
+            game->map_w = (int)ft_strlen(split[game->map_h]);
+        game->map_h++;
     }
-    if (game->news != 4 || game->colors != 2 || !game->north || !game->south
-        || !game->west || !game->east || !game->map)
-        failure();
 }
