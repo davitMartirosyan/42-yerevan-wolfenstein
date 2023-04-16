@@ -13,7 +13,7 @@
 #include "cub3d.h"
 static int      check_top_bottom(char *board);
 static int      check_middle(t_game *game, char **board);
-static void     set_player(t_game *game, int pos_dir, int x, int y);
+static void     set_player(t_game *game, int pos_dir);
 
 int check_board(t_game *game, char **board)
 {
@@ -71,8 +71,9 @@ void player(t_game *game)
             if (game->mmap[y][x] == 30 || game->mmap[y][x] == 35
                 || game->mmap[y][x] == 39 || game->mmap[y][x] == 21)
             {
-                printf("%d\n", game->mmap[y][x]);
-                set_player(game, game->mmap[y][x], x, y);
+                game->player->pos.x = x + 1;
+                game->player->pos.y = y + 1;
+                set_player(game, game->mmap[y][x]);
                 shooter++;
             }
             x++;
@@ -83,34 +84,34 @@ void player(t_game *game)
         failure();
 }
 
-static void    set_player(t_game *game, int pos_dir, int x, int y)
+static void    set_player(t_game *game, int pos_dir)
 {
-    if (pos_dir == 'N')
-    {
-        game->player->dir.x = 0;
-        game->player->dir.y = 1;
-        game->player->pos.x = x;
-        game->player->pos.y = y;
-    }
-    else if (pos_dir == 'S')
+    if (pos_dir == 30) //N
     {
         game->player->dir.x = 0;
         game->player->dir.y = -1;
-        game->player->pos.x = x;
-        game->player->pos.y = y;
+        game->player->plane.x = 0.66 * game->player->dir.y;
+        game->player->plane.y = -0.66 * game->player->dir.x;
     }
-    else if (pos_dir == 'W')
+    else if (pos_dir == 35) //S
+    {
+        game->player->dir.x = 0;
+        game->player->dir.y = 1;
+        game->player->plane.x = 0.66 * game->player->dir.y;
+        game->player->plane.y = -0.66 * game->player->dir.x;
+    }
+    else if (pos_dir == 39) //W
     {
         game->player->dir.x = 1;
         game->player->dir.y = 0;
-        game->player->pos.x = x;
-        game->player->pos.y = y;
+        game->player->plane.x = 0.66 * game->player->dir.y;
+        game->player->plane.y = -0.66 * game->player->dir.x;
     }
-    else if(pos_dir == 'E')
+    else if(pos_dir == 21)//E
     {
         game->player->dir.x = -1;
         game->player->dir.y = 0;
-        game->player->pos.x = x;
-        game->player->pos.y = y;
+        game->player->plane.x = 0.66 * game->player->dir.y;
+        game->player->plane.y = -0.66 * game->player->dir.x;
     }
 }

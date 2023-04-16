@@ -23,8 +23,8 @@
 #define IS_INVALID 1
 #define IS_VALID 0
 #define IS_OPPENED 2
-#define WIDTH 640
-#define HEIGHT 640
+#define WIDTH 1024
+#define HEIGHT 800
 /*
     Player Pos
     N -> 30 -> {0, 1}       
@@ -107,3 +107,4 @@ int     check_board(t_game *game, char **board);
 void    run(t_game *game);
 void    player(t_game *game);
 void    play(t_game *game);
+void    draw(t_game *game);
