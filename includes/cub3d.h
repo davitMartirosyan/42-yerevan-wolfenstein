@@ -46,7 +46,7 @@ struct s_data
     char    *addr;
     int     bpp;
     int     len;
-    int     endian;  
+    int     endian;
 };
 
 struct s_vec

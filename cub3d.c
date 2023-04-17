@@ -20,6 +20,7 @@ int main(int ac, char **av)
         failure();
     game = init();
     parser(game, av[1]);
+	printf("%s\n", game->north);
     run(game);
 }
 
@@ -29,12 +30,9 @@ void    run(t_game *game)
     game->screen->mlx = mlx_init();
     game->screen->win = mlx_new_window(game->screen->mlx, WIDTH, HEIGHT, "Cub3d");
 	game->img.img = mlx_new_image(game->screen->mlx, WIDTH, HEIGHT);
-	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bpp, &game->img.len, &game->img.len);
+	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bpp, &game->img.len, &game->img.endian);
     play(game);
-	mlx_key_hook(game->screen->win, update_loop, game);
-	/**************************************************************************************/
-	mlx_put_image_to_window(game->screen->mlx, game->screen->win, game->img.img, 0, 0);
-	/*************************************************************************************/
+	mlx_hook(game->screen->win, 2, (1L<<0), update_loop, game);
     mlx_loop(game->screen->mlx);
 }
 
@@ -144,7 +142,7 @@ void    draw(t_game *game)
 			// mlx_pixel_put(game->screen->mlx, game->screen->win, x, s, game->floor_color);
 		w = drawStart - 1;
 		while (++w < drawEnd)
-			mpp(&game->img, x, w, 0xfa1c55);
+			mpp(&game->img, x, w, 0xfaccdd);
 			// mlx_pixel_put(game->screen->mlx, game->screen->win, x, w, 0x09a9c9a);
 		c = drawEnd - 1;
 		while (++c < HEIGHT)
@@ -153,6 +151,7 @@ void    draw(t_game *game)
 
 		x++;
     }
+	mlx_put_image_to_window(game->screen->mlx, game->screen->win, game->img.img, 0, 0);
 }
 
 void	mpp(t_data *data, int x, int y, int color)

@@ -1,7 +1,7 @@
-NO ./xpm/hyusis.xpm
-SO ./haraf.xpm
-WE ./arevmutq.xpm
-EA ./arevelq.xpm
+NO ./textures/xpm/bluestone.xpm
+SO ./textures/xpm/colorstone.xpm
+WE ./textures/xpm/redbrick.xpm
+EA ./textures/xpm/wood.xpm
 
 F 149,228,255
 C 92,92,92
