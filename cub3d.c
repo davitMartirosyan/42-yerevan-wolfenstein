@@ -28,11 +28,36 @@ void    run(t_game *game)
     player(game);
     game->screen->mlx = mlx_init();
     game->screen->win = mlx_new_window(game->screen->mlx, WIDTH, HEIGHT, "Cub3d");
-    // game->img.img = mlx_new_image(game->screen->mlx, WIDTH, HEIGHT);
-    // game->img.addr = mlx_get_data_addr(game->img.img,\
-    //     &game->img.bpp, &game->img.len, &game->img.endian);
+	game->img.img = mlx_new_image(game->screen->mlx, WIDTH, HEIGHT);
+	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bpp, &game->img.len, &game->img.len);
     play(game);
+	mlx_key_hook(game->screen->win, update_loop, game);
+	/**************************************************************************************/
+	mlx_put_image_to_window(game->screen->mlx, game->screen->win, game->img.img, 0, 0);
+	/*************************************************************************************/
     mlx_loop(game->screen->mlx);
+}
+
+int	update_loop(int keycode, t_game *game)
+{
+	if (keycode == 13) // W
+	{
+		game->player->pos.y -= 0.1;
+	}
+	else if (keycode == 0) // A
+	{
+		game->player->pos.x -= 0.1;
+	}
+	else if (keycode == 2) // D
+	{
+		game->player->pos.x += 0.1;
+	}
+	else if (keycode == 1) // S
+	{
+		game->player->pos.y += 0.1;
+	}
+	draw(game);
+	return (1);
 }
 
 void    play(t_game *game)
@@ -42,80 +67,69 @@ void    play(t_game *game)
 
 void    draw(t_game *game)
 {
-    int	x;
+
+	t_tsc	tsc;
+    int		x;
 
 	x = 0;
-
-	printf("***********************************\n");
-	printf("Pos: {%f} : {%f}\n", game->player->pos.x, game->player->pos.y);
-	printf("Dir: {%f} : {%f}\n", game->player->dir.x, game->player->dir.y);
-	printf("Plane: {%f} : {%f}\n", game->player->plane.x, game->player->plane.y);
-	printf("***********************************\n");
-
 	while (x < WIDTH)
 	{
-		double cameraX = 2 * x / (double)WIDTH - 1;
-		double rayDirX = game->player->dir.x + game->player->plane.x * cameraX;
-		double rayDirY = game->player->dir.y + game->player->plane.y * cameraX;
-		int mapX = (int)game->player->pos.x;
-		int mapY = (int)game->player->pos.y;
-
-		double sideDistX;
-		double sideDistY;
-
-		double deltaDistX = fabs(1 / rayDirX);
-		double deltaDistY = fabs(1 / rayDirY);
-
-		double perpWallDist;
-
-		int stepX;
-		int stepY;
-
-		int hit = 0;
-		int side;
-		if(rayDirX < 0)
+		tsc.cameraX = 2 * x / (double)WIDTH - 1;
+		tsc.rayDirX = game->player->dir.x + game->player->plane.x * tsc.cameraX;
+		tsc.rayDirY = game->player->dir.y + game->player->plane.y * tsc.cameraX;
+		tsc.mapX = (int)game->player->pos.x;
+		tsc.mapY = (int)game->player->pos.y;
+		tsc.sideDistX = 0;
+		tsc.sideDistY = 0;
+		tsc.deltaDistX = fabs(1 / tsc.rayDirX);
+		tsc.deltaDistY = fabs(1 / tsc.rayDirY);
+		tsc.perpWallDist = 0;
+		tsc.stepX = 0;
+		tsc.stepY = 0;
+		tsc.hit = 0;
+		tsc.side = 0;
+		if(tsc.rayDirX < 0)
 		{
-			stepX = -1;
-			sideDistX = (game->player->pos.x - mapX) * deltaDistX;
+			tsc.stepX = -1;
+			tsc.sideDistX = (game->player->pos.x - tsc.mapX) * tsc.deltaDistX;
 		}
 		else
 		{
-			stepX = 1;
-			sideDistX = (mapX + 1.0 - game->player->pos.x) * deltaDistX;
+			tsc.stepX = 1;
+			tsc.sideDistX = (tsc.mapX + 1.0 - game->player->pos.x) * tsc.deltaDistX;
 		}
-		if(rayDirY < 0)
+		if(tsc.rayDirY < 0)
 		{
-			stepY = -1;
-			sideDistY = (game->player->pos.y - mapY) * deltaDistY;
+			tsc.stepY = -1;
+			tsc.sideDistY = (game->player->pos.y - tsc.mapY) * tsc.deltaDistY;
 		}
 		else
 		{
-			stepY = 1;
-			sideDistY = (mapY + 1.0 - game->player->pos.y) * deltaDistY;
+			tsc.stepY = 1;
+			tsc.sideDistY = (tsc.mapY + 1.0 - game->player->pos.y) * tsc.deltaDistY;
 		}
-		while(hit == 0)
+		while(tsc.hit == 0)
 		{
-			if(sideDistX < sideDistY)
+			if(tsc.sideDistX < tsc.sideDistY)
 			{
-				sideDistX += deltaDistX;
-				mapX += stepX;
-				side = 0;
+				tsc.sideDistX += tsc.deltaDistX;
+				tsc.mapX += tsc.stepX;
+				tsc.side = 0;
 			}
 			else
 			{
-				sideDistY += deltaDistY;
-				mapY += stepY;
-				side = 1;
+				tsc.sideDistY += tsc.deltaDistY;
+				tsc.mapY += tsc.stepY;
+				tsc.side = 1;
 			}
-			if(game->mmap && game->mmap[mapY][mapX] == 1)
-				hit = 1;
+			if(game->mmap && game->mmap[tsc.mapY][tsc.mapX] == 1)
+				tsc.hit = 1;
 		}
-		if(side == 0)
-			perpWallDist = (mapX - game->player->pos.x + (1 - stepX) / 2) / rayDirX ;
+		if(tsc.side == 0)
+			tsc.perpWallDist = (tsc.mapX - game->player->pos.x + (1 - tsc.stepX) / 2) / tsc.rayDirX ;
 		else
-			perpWallDist = (mapY - game->player->pos.y + (1 - stepY) / 2) / rayDirY ;
-			//perpWallDist = (sideDistY - deltaDistY);
-		int lineHeight = (int)(HEIGHT / 2 / perpWallDist);
+			tsc.perpWallDist = (tsc.mapY - game->player->pos.y + (1 - tsc.stepY) / 2) / tsc.rayDirY ;
+		int lineHeight = (int)(HEIGHT / 2 / tsc.perpWallDist);
 		int drawStart = -lineHeight / 2 + HEIGHT / 2;
 		
 		if(drawStart < 0)
@@ -123,13 +137,29 @@ void    draw(t_game *game)
 		int drawEnd = lineHeight / 2 + HEIGHT / 2;
 		if(drawEnd >= HEIGHT)
 			drawEnd = HEIGHT - 1;
-        for(int i = 0; i < drawStart; i++)
-			mlx_pixel_put(game->screen->mlx, game->screen->win, x, i, 0xd92032);
-        for(int i = drawStart; i < drawEnd; i++)
-			mlx_pixel_put(game->screen->mlx, game->screen->win, x, i, 0x0074d7);
-        for(int i = drawEnd; i < HEIGHT; i++)
-			mlx_pixel_put(game->screen->mlx, game->screen->win, x, i, 0xf9983e);
+		int	s, w, c;
+		s = -1;
+		while (++s < drawStart)
+			mpp(&game->img, x, s, game->floor_color);
+			// mlx_pixel_put(game->screen->mlx, game->screen->win, x, s, game->floor_color);
+		w = drawStart - 1;
+		while (++w < drawEnd)
+			mpp(&game->img, x, w, 0xfa1c55);
+			// mlx_pixel_put(game->screen->mlx, game->screen->win, x, w, 0x09a9c9a);
+		c = drawEnd - 1;
+		while (++c < HEIGHT)
+			mpp(&game->img, x, c, game->ceiling_color);
+			// mlx_pixel_put(game->screen->mlx, game->screen->win, x, c, game->ceiling_color);
+
 		x++;
     }
+}
+
+void	mpp(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+	
+	dst = data->addr + (y * data->len + x * (data->bpp / 8));
+	*(unsigned int*)dst = color;
 }
 // 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

@@ -74,6 +74,7 @@ void player(t_game *game)
                 game->player->pos.x = x + 1;
                 game->player->pos.y = y + 1;
                 set_player(game, game->mmap[y][x]);
+                game->mmap[y][x] = 0;
                 shooter++;
             }
             x++;
@@ -90,8 +91,8 @@ static void    set_player(t_game *game, int pos_dir)
     {
         game->player->dir.x = 0;
         game->player->dir.y = -1;
-        game->player->plane.x = 0.66 * game->player->dir.y;
-        game->player->plane.y = -0.66 * game->player->dir.x;
+        game->player->plane.x = -0.66 * game->player->dir.y;
+        game->player->plane.y = 0.66 * game->player->dir.x;
     }
     else if (pos_dir == 35) //S
     {

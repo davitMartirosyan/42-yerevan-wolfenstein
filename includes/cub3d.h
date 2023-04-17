@@ -24,7 +24,7 @@
 #define IS_VALID 0
 #define IS_OPPENED 2
 #define WIDTH 1024
-#define HEIGHT 800
+#define HEIGHT 640
 /*
     Player Pos
     N -> 30 -> {0, 1}       
@@ -37,9 +37,10 @@ typedef struct s_screen t_screen;
 typedef struct s_game t_game;
 typedef struct s_player t_player;
 typedef struct s_vec t_vec;
-typedef struct s_img t_img;
+typedef struct s_data t_data;
+typedef struct s_tsc t_tsc;
 
-struct s_img
+struct s_data
 {
     void    *img;
     char    *addr;
@@ -76,9 +77,27 @@ struct s_game
     char        *west;
     char        *east;
     char        *map;
-    t_img       img;
+    t_data      img;
     t_screen    *screen;
     t_player    *player;
+};
+
+struct s_tsc
+{
+    double	cameraX;
+    double	rayDirX;
+    double	rayDirY;
+    double	sideDistX;
+    double	sideDistY;
+    double	deltaDistX;
+    double	deltaDistY;
+    double  perpWallDist;
+    int		mapX;
+    int		mapY;
+    int		stepX;
+    int		stepY;
+    int		hit;
+    int		side;
 };
 
 struct s_screen
@@ -108,3 +127,5 @@ void    run(t_game *game);
 void    player(t_game *game);
 void    play(t_game *game);
 void    draw(t_game *game);
+int     update_loop(int kyecode, t_game *game);
+void	mpp(t_data *data, int x, int y, int color);
