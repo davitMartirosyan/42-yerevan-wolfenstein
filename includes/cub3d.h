@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 23:55:14 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/16 01:18:15 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/04/18 05:38:30 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include "../mlx/mlx.h"
 #include "get_next_line.h"
 #include "../libft/libft.h"
-
+#define PI 3.1415926535
 #define IS_INVALID 1
 #define IS_VALID 0
 #define IS_OPPENED 2
@@ -60,6 +60,9 @@ struct s_player
     t_vec   pos;
     t_vec   dir;
     t_vec   plane;
+	double	pdx;
+	double	pdy;
+	double	pa;
 };
 
 struct s_game
@@ -107,25 +110,26 @@ struct s_screen
 };
 
 t_game  *init(void);
-void    parser(t_game *game, char *filename);
+int     contains(char *source, char *find);
+int     update_loop(int kyecode, t_game *game);
+int     rgb(char *txt);
+int		player(t_game *game);
+int		check_board(t_game *game);
+int		checkall(int **mmap, int y, int x, int w, int h);
+int     *set_matrix_line(char *strline, int map_width);
 char    **create_map_buffer(char *filename);
+char	*set_map(char *s1, int delimiter, char *s2);
+void    parser(t_game *game, char *filename);
 void    failure(void);
 void	free_char_pp(char ***pp);
 void    set_instances(t_game *game);
 void    set_matrix(t_game *game);
 void    get_map_sizes(t_game *game, char **split);
-char	*set_map(char *s1, int delimiter, char *s2);
-int     contains(char *source, char *find);
 void    put_textures(t_game *game, int i);
 void    put_colors(t_game *game, int i);
-int     rgb(char *txt);
 char    *path(char *line);
-int     *set_matrix_line(char *strline, int map_width);
 void    set_int_matrix(t_game *game, char **split);
-int     check_board(t_game *game, char **board);
 void    run(t_game *game);
-void    player(t_game *game);
 void    play(t_game *game);
 void    draw(t_game *game);
-int     update_loop(int kyecode, t_game *game);
 void	mpp(t_data *data, int x, int y, int color);

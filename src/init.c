@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 00:26:10 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/16 01:18:22 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/04/18 02:40:42 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,8 @@ t_game  *init(void)
     game->news = 0;
     game->colors = 0;
     game->map = NULL;
+	game->player->pdx = 0.0;
+	game->player->pdy = 0.0;
+	game->player->pa = 0.0;
     return (game);
 }

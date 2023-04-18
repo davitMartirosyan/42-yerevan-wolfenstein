@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 18:28:17 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/16 00:12:29 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/04/18 03:40:50 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,6 @@ void    set_matrix(t_game *game)
     
     split = ft_split(game->map, '\n');
     get_map_sizes(game, split);
-    if (!check_board(game, split))
-    {
-        free_char_pp(&split);
-        failure();
-    }
     set_int_matrix(game, split);
     free_char_pp(&split);
 }

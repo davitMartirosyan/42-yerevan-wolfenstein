@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphic.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 05:46:33 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/14 06:30:35 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/04/18 03:47:07 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,3 +30,10 @@ int     rgb(char *txt)
     return (i);
 }
 
+void	mpp(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+	
+	dst = data->addr + (y * data->len + x * (data->bpp / 8));
+	*(unsigned int*)dst = color;
+}

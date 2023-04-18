@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 23:58:47 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/16 01:18:39 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/04/18 06:06:34 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,47 +20,18 @@ int main(int ac, char **av)
         failure();
     game = init();
     parser(game, av[1]);
-	printf("%s\n", game->north);
-    run(game);
-}
-
-void    run(t_game *game)
-{
-    player(game);
-    game->screen->mlx = mlx_init();
-    game->screen->win = mlx_new_window(game->screen->mlx, WIDTH, HEIGHT, "Cub3d");
-	game->img.img = mlx_new_image(game->screen->mlx, WIDTH, HEIGHT);
-	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bpp, &game->img.len, &game->img.endian);
     play(game);
-	mlx_hook(game->screen->win, 2, (1L<<0), update_loop, game);
-    mlx_loop(game->screen->mlx);
-}
-
-int	update_loop(int keycode, t_game *game)
-{
-	if (keycode == 13) // W
-	{
-		game->player->pos.y -= 0.1;
-	}
-	else if (keycode == 0) // A
-	{
-		game->player->pos.x -= 0.1;
-	}
-	else if (keycode == 2) // D
-	{
-		game->player->pos.x += 0.1;
-	}
-	else if (keycode == 1) // S
-	{
-		game->player->pos.y += 0.1;
-	}
-	draw(game);
-	return (1);
 }
 
 void    play(t_game *game)
 {
+    game->screen->mlx = mlx_init();
+    game->screen->win = mlx_new_window(game->screen->mlx, WIDTH, HEIGHT, "Cub3d");
+	game->img.img = mlx_new_image(game->screen->mlx, WIDTH, HEIGHT);
+	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bpp, &game->img.len, &game->img.endian);
     draw(game);
+	mlx_hook(game->screen->win, 2, (1L<<0), update_loop, game);
+    mlx_loop(game->screen->mlx);
 }
 
 void    draw(t_game *game)
@@ -139,26 +110,16 @@ void    draw(t_game *game)
 		s = -1;
 		while (++s < drawStart)
 			mpp(&game->img, x, s, game->floor_color);
-			// mlx_pixel_put(game->screen->mlx, game->screen->win, x, s, game->floor_color);
 		w = drawStart - 1;
 		while (++w < drawEnd)
 			mpp(&game->img, x, w, 0xfaccdd);
-			// mlx_pixel_put(game->screen->mlx, game->screen->win, x, w, 0x09a9c9a);
 		c = drawEnd - 1;
 		while (++c < HEIGHT)
 			mpp(&game->img, x, c, game->ceiling_color);
-			// mlx_pixel_put(game->screen->mlx, game->screen->win, x, c, game->ceiling_color);
-
 		x++;
     }
 	mlx_put_image_to_window(game->screen->mlx, game->screen->win, game->img.img, 0, 0);
 }
 
-void	mpp(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-	
-	dst = data->addr + (y * data->len + x * (data->bpp / 8));
-	*(unsigned int*)dst = color;
-}
+
 // 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
