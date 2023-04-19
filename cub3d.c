@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 23:58:47 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/18 06:06:34 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/19 06:45:28 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,15 @@ void    play(t_game *game)
     game->screen->win = mlx_new_window(game->screen->mlx, WIDTH, HEIGHT, "Cub3d");
 	game->img.img = mlx_new_image(game->screen->mlx, WIDTH, HEIGHT);
 	game->img.addr = mlx_get_data_addr(game->img.img, &game->img.bpp, &game->img.len, &game->img.endian);
+	game->player->fov = 2 * atan(0.66 / 1.0); // -> 66
     draw(game);
-	mlx_hook(game->screen->win, 2, (1L<<0), update_loop, game);
+	mlx_hook(game->screen->win, 2, 1L<<0, update_loop, game);
+	mlx_hook(game->screen->win, 17, 0L, close_win, game);
     mlx_loop(game->screen->mlx);
 }
 
 void    draw(t_game *game)
 {
-
 	t_tsc	tsc;
     int		x;
 
@@ -112,12 +113,13 @@ void    draw(t_game *game)
 			mpp(&game->img, x, s, game->floor_color);
 		w = drawStart - 1;
 		while (++w < drawEnd)
-			mpp(&game->img, x, w, 0xfaccdd);
+			mpp(&game->img, x, w, 0xa17600);
 		c = drawEnd - 1;
 		while (++c < HEIGHT)
 			mpp(&game->img, x, c, game->ceiling_color);
 		x++;
     }
+	mlx_clear_window(game->screen->mlx, game->screen->win);
 	mlx_put_image_to_window(game->screen->mlx, game->screen->win, game->img.img, 0, 0);
 }
 

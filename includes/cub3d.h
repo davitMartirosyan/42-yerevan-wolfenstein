@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 23:55:14 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/18 05:38:30 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/19 06:31:15 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,19 @@
 #include "../mlx/mlx.h"
 #include "get_next_line.h"
 #include "../libft/libft.h"
-#define PI 3.1415926535
+
+#define WIDTH 1024
+#define HEIGHT 640
+
+#define PI_HALF (PI / 2)            // 90
+#define PI 3.1415926535             // 180
+#define PI_3 (3 * (PI_HALF / 2))    // 270
+#define PI_2 (PI * 2)               // 360
+#define SPEED 0.1; 
+
 #define IS_INVALID 1
 #define IS_VALID 0
 #define IS_OPPENED 2
-#define WIDTH 1024
-#define HEIGHT 640
 /*
     Player Pos
     N -> 30 -> {0, 1}       
@@ -58,11 +65,12 @@ struct s_vec
 struct s_player
 {
     t_vec   pos;
+	t_vec	old_dir;
     t_vec   dir;
     t_vec   plane;
-	double	pdx;
-	double	pdy;
-	double	pa;
+	t_vec	old_plane;
+	double	cdir;
+	double	fov;
 };
 
 struct s_game
@@ -112,6 +120,8 @@ struct s_screen
 t_game  *init(void);
 int     contains(char *source, char *find);
 int     update_loop(int kyecode, t_game *game);
+int		esc(int keycode, t_game *game);
+int		close_win(t_game *game);
 int     rgb(char *txt);
 int		player(t_game *game);
 int		check_board(t_game *game);
@@ -129,7 +139,6 @@ void    put_textures(t_game *game, int i);
 void    put_colors(t_game *game, int i);
 char    *path(char *line);
 void    set_int_matrix(t_game *game, char **split);
-void    run(t_game *game);
 void    play(t_game *game);
 void    draw(t_game *game);
 void	mpp(t_data *data, int x, int y, int color);

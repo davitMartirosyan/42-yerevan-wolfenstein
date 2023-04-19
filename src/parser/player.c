@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 03:19:25 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/04/18 05:37:12 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/19 05:35:07 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ static void    set_player(t_game *game, int pos_dir)
 {
     if (pos_dir == 30) //N
     {
+		game->player->cdir = PI_3; // 90 astichan depi verev
         game->player->dir.x = 0;
         game->player->dir.y = -1;
         game->player->plane.x = -0.66 * game->player->dir.y;
