@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 23:58:47 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/19 06:45:28 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/19 23:09:22 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void    play(t_game *game)
     draw(game);
 	mlx_hook(game->screen->win, 2, 1L<<0, update_loop, game);
 	mlx_hook(game->screen->win, 17, 0L, close_win, game);
+	mlx_mouse_hook(game->screen->win, mouse_, game);
     mlx_loop(game->screen->mlx);
 }
 

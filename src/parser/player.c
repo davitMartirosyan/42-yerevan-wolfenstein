@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 03:19:25 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/04/19 05:35:07 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/19 19:58:20 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int player(t_game *game)
             {
 				if (!checkall(game->mmap, y, x, game->map_w - 1, game->map_h - 1))
 					return (0);
-                game->player->pos.x = x + 1;
-                game->player->pos.y = y + 1;
+                game->player->pos.x = x + 0.5;
+                game->player->pos.y = y + 0.5;
                 set_player(game, game->mmap[y][x]);
                 game->mmap[y][x] = 0;
                 shooter++;
@@ -51,7 +51,8 @@ static void    set_player(t_game *game, int pos_dir)
 {
     if (pos_dir == 30) //N
     {
-		game->player->cdir = PI_3; // 90 astichan depi verev
+		game->player->angle = 90;
+		game->player->cdir = degree_to_radian(replace_angle_360(90)); // 90 astichan depi verev
         game->player->dir.x = 0;
         game->player->dir.y = -1;
         game->player->plane.x = -0.66 * game->player->dir.y;
@@ -59,23 +60,29 @@ static void    set_player(t_game *game, int pos_dir)
     }
     else if (pos_dir == 35) //S
     {
+		game->player->angle = 270;
+		game->player->cdir = degree_to_radian(replace_angle_360(270)); // 270 astichan depi verev
         game->player->dir.x = 0;
         game->player->dir.y = 1;
-        game->player->plane.x = 0.66 * game->player->dir.y;
-        game->player->plane.y = -0.66 * game->player->dir.x;
+        game->player->plane.x = -0.66 * game->player->dir.y;
+        game->player->plane.y = 0.66 * game->player->dir.x;
     }
     else if (pos_dir == 39) //W
     {
-        game->player->dir.x = 1;
+		game->player->angle = 180;
+		game->player->cdir = degree_to_radian(replace_angle_360(180)); // 180 astichan depi verev
+        game->player->dir.x = -1;
         game->player->dir.y = 0;
-        game->player->plane.x = 0.66 * game->player->dir.y;
-        game->player->plane.y = -0.66 * game->player->dir.x;
+        game->player->plane.x = -0.66 * game->player->dir.y;
+        game->player->plane.y = 0.66 * game->player->dir.x;
     }
     else if(pos_dir == 21)//E
     {
-        game->player->dir.x = -1;
+		game->player->angle = 360;
+		game->player->cdir = degree_to_radian(replace_angle_360(360)); // 360 astichan depi verev
+        game->player->dir.x = 1;
         game->player->dir.y = 0;
-        game->player->plane.x = 0.66 * game->player->dir.y;
-        game->player->plane.y = -0.66 * game->player->dir.x;
+        game->player->plane.x = -0.66 * game->player->dir.y;
+        game->player->plane.y = 0.66 * game->player->dir.x;
     }
 }

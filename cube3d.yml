@@ -72,3 +72,106 @@ static int  check_top_bottom(char *board)
 11111111111101011111011100111
 11110111111101011101111010001
 1111111111111111111111111111
+
+
+
+
+
+
+
+
+
+
+if (keycode == 13) // W
+	{
+		game->player->pos.x += game->player->dir.x * 0.1;
+		game->player->pos.y += game->player->dir.y * 0.1;
+		// game->player->pos.y -= 0.1 * sin(game->player->cdir);
+	}
+	else if (keycode == 0) // A
+	{
+		game->player->pos.x += (game->player->dir.x * 0.1);
+		game->player->pos.y -= (game->player->dir.y * 0.1);
+		// game->player->pos.x -= game->player->dir.x * 0.1;
+	}
+	else if (keycode == 2) // D
+	{
+		// game->player->pos.x += game->player->dir.x * 0.1;
+	}
+	else if (keycode == 1) // S
+	{
+		game->player->pos.y += 0.1 * sin(game->player->cdir);
+	}
+	else if (keycode == 123) // L
+	{
+		game->player->angle = -5;
+		game->player->angle = replace_angle_360(game->player->angle);
+		game->player->cdir = degree_to_radian(game->player->angle);
+		game->player->old_dir.x = game->player->dir.x;
+		game->player->dir.x = game->player->dir.x * cos(0.050) - game->player->dir.y * sin(0.050);
+		game->player->dir.y = game->player->old_dir.x * sin(0.050) + game->player->dir.y * cos(0.050);
+		game->player->old_plane.x = game->player->plane.x;
+		game->player->plane.x = game->player->plane.x * cos(0.050) - game->player->plane.y * sin(0.050);
+		game->player->plane.y = game->player->old_plane.x * sin(0.050) + game->player->plane.y * cos(0.050);	
+	}
+	else if (keycode == 124) // R
+	{
+		game->player->angle += 5;
+		game->player->angle = replace_angle_360(game->player->angle);
+		game->player->cdir = degree_to_radian(game->player->angle);
+		game->player->old_dir.x = game->player->dir.x;
+		game->player->dir.x = game->player->dir.x * cos(-0.050) - game->player->dir.y * sin(-0.050);
+		game->player->dir.y = game->player->old_dir.x * sin(-0.050) + game->player->dir.y * cos(-0.050);
+		game->player->old_plane.x = game->player->plane.x;
+		game->player->plane.x = game->player->plane.x * cos(-0.050) - game->player->plane.y * sin(-0.050);
+		game->player->plane.y = game->player->old_plane.x * sin(-0.050) + game->player->plane.y * cos(-0.050);	
+	}
+	else if (keycode == 53)
+		esc(keycode, game);
+
+
+
+
+
+
+
+
+
+
+
+
+    int	update_loop(int k, t_game *game)
+{
+	
+	if (k == 13)
+		w(game);
+	else if (k == 1)
+		s(game);
+	else if (k == 0)
+		a(game);
+	else if (k == 2)
+		d(game);
+	else if (k == 123 || k == 124)
+		left_right(k, game);
+	else if (k == 53)
+		esc(k, game);
+	draw(game);
+	return (1);
+}
+
+int	esc(int keycode, t_game *game)
+{
+	if (keycode == 53)
+	{
+		mlx_destroy_window(game->screen->mlx, game->screen->win);
+		exit(0);
+	}
+	return (1);
+}
+
+int	close_win(t_game *game)
+{
+	mlx_destroy_window(game->screen->mlx, game->screen->win);
+	exit(0);
+	return (0);
+}
