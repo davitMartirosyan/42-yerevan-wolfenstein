@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 23:55:14 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/19 23:09:56 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/20 05:21:43 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@
 #include "get_next_line.h"
 #include "../libft/libft.h"
 
-#define WIDTH 1024
-#define HEIGHT 640
+#define WIDTH 1920
+#define HEIGHT 1280
 
 #define PI_HALF (PI / 2)            // 90 
 #define PI 3.1415926535             // 180
 #define PI_3 (3 * (PI_HALF / 2))    // 270
 #define PI_2 (PI * 2)               // 360
-#define SPEED 0.1
+#define SPEED 0.08
 #define ROT 0.05
 #define IS_INVALID 1
 #define IS_VALID 0
@@ -72,6 +72,7 @@ struct s_player
 	double	angle;
 	double	cdir;
 	double	fov;
+	double	mouse_x;
 };
 
 struct s_game
@@ -110,6 +111,7 @@ struct s_tsc
     int		stepY;
     int		hit;
     int		side;
+	int		wallColor;
 };
 
 struct s_screen
@@ -123,7 +125,7 @@ int     contains(char *source, char *find);
 int     update_loop(int kyecode, t_game *game);
 int		esc(int keycode, t_game *game);
 int		close_win(t_game *game);
-int		mouse_(t_game *game);
+int		mouse_(int x, int y, t_game *game);
 int     rgb(char *txt);
 int		player(t_game *game);
 int		check_board(t_game *game);
