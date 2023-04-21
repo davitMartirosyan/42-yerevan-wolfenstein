@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   helpers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 06:31:41 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/15 18:45:15 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/04/21 15:23:06 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ char    **create_map_buffer(char *filename)
         buffer = ft_strjoin(buffer, line);
     }
     split = ft_split(buffer, '\n');
-    free(line);
-    free(buffer);
+	free(buffer);
+	free(line);
     close(fd);
     return (split);
 }

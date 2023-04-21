@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 00:26:10 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/19 05:29:18 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/21 13:41:54 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_game  *init(void)
     game = malloc(sizeof(t_game));
     game->player = malloc(sizeof(t_player));
     game->screen = malloc(sizeof(t_screen));
+	
     if (!game || !game->player)
         failure();
     game->map_h = 0;

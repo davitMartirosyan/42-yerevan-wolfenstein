@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 23:58:24 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/18 05:37:55 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/21 15:23:39 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void    parser(t_game *game, char *filename)
 	if (!check_board(game))
 		failure();
 	if (!player(game))
-		failure();
+		failure();	
 }
 
 void    get_map_sizes(t_game *game, char **split)

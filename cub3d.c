@@ -6,11 +6,12 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 23:58:47 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/20 06:29:02 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/21 15:00:15 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+void	test(t_game *game);
 
 int main(int ac, char **av)
 {
@@ -20,7 +21,25 @@ int main(int ac, char **av)
         failure();
     game = init();
     parser(game, av[1]);
+	check_dependancies(game);
+	// test(game);
     play(game);
+}
+
+void	test(t_game *game)
+{
+	int	w;
+	int	h;
+
+	void	*img;
+	
+	game->screen->mlx = mlx_init();
+	game->screen->win = mlx_new_window(game->screen->mlx, 500, 500, "Test");
+	mlx_put_image_to_window(game->screen->mlx, game->screen->win, game->dir[0], 10, 10);
+	mlx_put_image_to_window(game->screen->mlx, game->screen->win, game->dir[1], 50, 50);
+	mlx_put_image_to_window(game->screen->mlx, game->screen->win, game->dir[2], 100, 100);
+	mlx_hook(game->screen->win, 2, 1L<<0, update_loop, game);
+	mlx_loop(game->screen->mlx);
 }
 
 void    play(t_game *game)
@@ -34,93 +53,34 @@ void    play(t_game *game)
 	mlx_hook(game->screen->win, 2, 1L<<0, update_loop, game);
 	mlx_hook(game->screen->win, 17, 0L, close_win, game);
 	mlx_hook(game->screen->win, 6, 0L, mouse_, game);
-    mlx_loop(game->screen->mlx);
+	mlx_loop(game->screen->mlx);
 }
 
 void    draw(t_game *game)
 {
-	t_tsc	tsc;
+	int	s, w, c;	
     int		x;
 
 	x = 0;
 	while (x < WIDTH)
 	{
-		tsc.cameraX = 2 * x / (double)WIDTH - 1;
-		tsc.rayDirX = game->player->dir.x + game->player->plane.x * tsc.cameraX;
-		tsc.rayDirY = game->player->dir.y + game->player->plane.y * tsc.cameraX;
-		tsc.mapX = (int)game->player->pos.x;
-		tsc.mapY = (int)game->player->pos.y;
-		tsc.sideDistX = 0;
-		tsc.sideDistY = 0;
-		tsc.deltaDistX = fabs(1 / tsc.rayDirX);
-		tsc.deltaDistY = fabs(1 / tsc.rayDirY);
-		tsc.perpWallDist = 0;
-		tsc.stepX = 0;
-		tsc.stepY = 0;
-		tsc.hit = 0;
-		tsc.side = 0;
-		if(tsc.rayDirX < 0)
-		{
-			tsc.stepX = -1;
-			tsc.sideDistX = (game->player->pos.x - tsc.mapX) * tsc.deltaDistX;
-		}
-		else
-		{
-			tsc.stepX = 1;
-			tsc.sideDistX = (tsc.mapX + 1.0 - game->player->pos.x) * tsc.deltaDistX;
-		}
-		if(tsc.rayDirY < 0)
-		{
-			tsc.stepY = -1;
-			tsc.sideDistY = (game->player->pos.y - tsc.mapY) * tsc.deltaDistY;
-		}
-		else
-		{
-			tsc.stepY = 1;
-			tsc.sideDistY = (tsc.mapY + 1.0 - game->player->pos.y) * tsc.deltaDistY;
-		}
-		while(tsc.hit == 0)
-		{
-			if(tsc.sideDistX < tsc.sideDistY)
-			{
-				tsc.sideDistX += tsc.deltaDistX;
-				tsc.mapX += tsc.stepX;
-				tsc.side = 0;
-			}
-			else
-			{
-				tsc.sideDistY += tsc.deltaDistY;
-				tsc.mapY += tsc.stepY;
-				tsc.side = 1;
-			}
-			if(game->mmap && game->mmap[tsc.mapY][tsc.mapX] == 1)
-				tsc.hit = 1;
-		}
-		if(tsc.side == 0)
-			tsc.perpWallDist = (tsc.mapX - game->player->pos.x + (1 - tsc.stepX) / 2) / tsc.rayDirX ;
-		else
-			tsc.perpWallDist = (tsc.mapY - game->player->pos.y + (1 - tsc.stepY) / 2) / tsc.rayDirY ;
-		int lineHeight = (int)(HEIGHT / 2 / tsc.perpWallDist);
-		int drawStart = -lineHeight / 2 + HEIGHT / 2;
-		if(drawStart < 0)
-			drawStart = 0;
-		int drawEnd = lineHeight / 2 + HEIGHT / 2;
-		if(drawEnd >= HEIGHT)
-			drawEnd = HEIGHT - 1;
-		int	s, w, c;
+		init_game_tsc(x, game);
+		check_rays(game);
+		dda_algorithm_loop(game);
+		start_end(x, game);
 		s = -1;
-		while (++s < drawStart)
+		while (++s < game->tsc.drawStart)
 			mpp(&game->img, x, s, game->floor_color);
-		w = drawStart - 1;
-		while (++w < drawEnd)
+		w = game->tsc.drawStart - 1;
+		while (++w < game->tsc.drawEnd)
 		{
-			if (tsc.side == 1)
-				tsc.wallColor = 0xf5d784;
+			if (game->tsc.side == 1)
+				game->tsc.wallColor = 0xd65227;
 			else
-				tsc.wallColor = 0xba9225;
-			mpp(&game->img, x, w, tsc.wallColor);
+				game->tsc.wallColor = 0x86945;
+			mpp(&game->img, x, w, game->tsc.wallColor);
 		}
-		c = drawEnd - 1;
+		c = game->tsc.drawEnd - 1;
 		while (++c < HEIGHT)
 			mpp(&game->img, x, c, game->ceiling_color);
 		x++;
@@ -129,5 +89,32 @@ void    draw(t_game *game)
 	mlx_put_image_to_window(game->screen->mlx, game->screen->win, game->img.img, 0, 0);
 }
 
+
+void	check_dependancies(t_game *game)
+{
+	int	s;
+	int	i;
+	int	bit_per_pixel[2];
+	int	line_size[2];
+	int	endian[2];
+	
+	game->dir[0] = mlx_xpm_file_to_image(game->screen->mlx, path(game->north), &i, &i);
+	game->dir[1] = mlx_xpm_file_to_image(game->screen->mlx, path(game->south), &i, &i);
+	game->dir[2] = mlx_xpm_file_to_image(game->screen->mlx, path(game->west), &i, &i);
+	game->dir[3] = mlx_xpm_file_to_image(game->screen->mlx, path(game->east), &i, &i);
+	free(game->north);
+	free(game->south);
+	free(game->west);
+	free(game->east);
+	s = 0;
+	while (s < 4)
+	{
+		if (!game->dir[s])
+			failure();
+		else
+			game->addr[s] = mlx_get_data_addr(game->dir[s], game->bpp, game->line_len, game->endian);
+		s++;
+	}
+}
 
 // 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

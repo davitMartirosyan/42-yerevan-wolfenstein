@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 23:55:14 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/20 05:21:43 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/21 13:58:17 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 #define PI_2 (PI * 2)               // 360
 #define SPEED 0.08
 #define ROT 0.05
+#define ROT_MOUSE 0.09
 #define IS_INVALID 1
 #define IS_VALID 0
 #define IS_OPPENED 2
@@ -41,11 +42,11 @@
 */
 
 typedef struct s_screen t_screen;
+typedef struct s_tsc t_tsc;
 typedef struct s_game t_game;
 typedef struct s_player t_player;
 typedef struct s_vec t_vec;
 typedef struct s_data t_data;
-typedef struct s_tsc t_tsc;
 
 struct s_data
 {
@@ -67,32 +68,12 @@ struct s_player
     t_vec   pos;
 	t_vec	old_dir;
     t_vec   dir;
-    t_vec   plane;
+    t_vec   plane; 
 	t_vec	old_plane;
 	double	angle;
 	double	cdir;
 	double	fov;
 	double	mouse_x;
-};
-
-struct s_game
-{
-    int         map_h;
-    int         map_w;
-    int         floor_color;
-    int         ceiling_color;
-    int         **mmap;
-    int         news;
-    int         colors;
-    char        **sdl;
-    char        *north;
-    char        *south;
-    char        *west;
-    char        *east;
-    char        *map;
-    t_data      img;
-    t_screen    *screen;
-    t_player    *player;
 };
 
 struct s_tsc
@@ -105,6 +86,9 @@ struct s_tsc
     double	deltaDistX;
     double	deltaDistY;
     double  perpWallDist;
+	int		lineHeight;
+	int		drawStart;
+	int		drawEnd;
     int		mapX;
     int		mapY;
     int		stepX;
@@ -112,7 +96,35 @@ struct s_tsc
     int		hit;
     int		side;
 	int		wallColor;
+	int		wall;
 };
+
+struct s_game
+{
+    int         map_h;
+    int         map_w;
+    int         floor_color;
+    int         ceiling_color;
+    int         **mmap;
+    int         news;
+    int         colors;
+	int			bpp[2];
+	int			endian[2];
+	int			line_len[2];
+    char        **sdl;
+    char        *north;
+    char        *south;
+    char        *west;
+    char        *east;
+	char		*dir[4];
+	void		*addr[4];
+    char        *map;
+	t_tsc		tsc;
+    t_data      img;
+    t_screen    *screen;
+    t_player    *player;
+};
+
 
 struct s_screen
 {
@@ -145,7 +157,12 @@ char    *path(char *line);
 void    set_int_matrix(t_game *game, char **split);
 void    play(t_game *game);
 void    draw(t_game *game);
+void	start_end(int x, t_game *game);
 void	mpp(t_data *data, int x, int y, int color);
+void	init_game_tsc(int x, t_game *game);
+void	check_rays(t_game *game);
+void	dda_algorithm_loop(t_game *game);
+void	check_dependancies(t_game *game);
 double	replace_angle_360(double angle);
 double	degree_to_radian(double degree);
 
