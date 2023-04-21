@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphic.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmkhitar <dmkhitar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 05:46:33 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/14 06:30:35 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/04/22 00:51:24 by dmkhitar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int     rgb(char *txt)
     int     i;
     char    *copy;
     char    **split;
-    
+
     copy = ft_strdup(txt);
     i = -1;
     while (copy[++i])
@@ -30,3 +30,14 @@ int     rgb(char *txt)
     return (i);
 }
 
+void set_rgb(t_texture *texture, unsigned char *red, unsigned char *green, unsigned char *blue, int x, int y)
+{
+    *blue = texture->data[x * texture->bpp / 8 + y * texture->size_line];
+    *green = texture->data[x * texture->bpp / 8 + y * texture->size_line + 1];
+    *red = texture->data[x * texture->bpp / 8 + y * texture->size_line + 2];
+}
+
+int rgb_tohex(int r, int g, int b)
+{
+    return (r << 16 | g << 8 | b);
+}

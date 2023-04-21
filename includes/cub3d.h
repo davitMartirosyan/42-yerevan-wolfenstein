@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmkhitar <dmkhitar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 23:55:14 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/16 01:18:15 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/04/22 01:36:37 by dmkhitar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 #define HEIGHT 640
 /*
     Player Pos
-    N -> 30 -> {0, 1}       
+    N -> 30 -> {0, 1}
     S -> 35 -> {0, -1}
     W -> 39 -> {1, 0}
     E -> 21 -> {-1, 0}
@@ -39,6 +39,24 @@ typedef struct s_player t_player;
 typedef struct s_vec t_vec;
 typedef struct s_data t_data;
 typedef struct s_tsc t_tsc;
+typedef struct s_texture t_texture;
+
+struct s_texture
+{
+    void    *texture_p;
+    int     width;
+    int     height;
+    int     x;
+    int     y;
+    int     bpp;
+    int     size_line;
+    int     endian;
+    char*   data;
+    unsigned char red;
+    unsigned char green;
+    unsigned char blue;
+
+};
 
 struct s_data
 {
@@ -80,6 +98,7 @@ struct s_game
     t_data      img;
     t_screen    *screen;
     t_player    *player;
+    t_texture   texture[4];
 };
 
 struct s_tsc
@@ -119,6 +138,7 @@ int     contains(char *source, char *find);
 void    put_textures(t_game *game, int i);
 void    put_colors(t_game *game, int i);
 int     rgb(char *txt);
+int     rgb_tohex(int r, int g, int b);
 char    *path(char *line);
 int     *set_matrix_line(char *strline, int map_width);
 void    set_int_matrix(t_game *game, char **split);
@@ -129,3 +149,6 @@ void    play(t_game *game);
 void    draw(t_game *game);
 int     update_loop(int kyecode, t_game *game);
 void	mpp(t_data *data, int x, int y, int color);
+// my code
+void    set_rgb(t_texture *texture, unsigned char *red, unsigned char *green, unsigned char *blue, int x, int y);
+int    set_texture_data(t_game *game);
