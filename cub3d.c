@@ -6,7 +6,7 @@
 /*   By: dmkhitar <dmkhitar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 23:58:47 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/22 01:43:37 by dmkhitar         ###   ########.fr       */
+/*   Updated: 2023/04/22 02:09:11 by dmkhitar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,17 +214,6 @@ int get_pixel_hex(t_texture texture, int x, int y)
 	unsigned char blue = texture.data[x * texture.bpp / 8 + y * texture.size_line];
 	unsigned char green = texture.data[x * texture.bpp / 8 + y * texture.size_line + 1];
 	unsigned char red = texture.data[x * texture.bpp / 8 + y * texture.size_line + 2];
-
 	return (rgb_tohex(red, green, blue));
 }
-
-// void	my_mlx_pixel_put(t_game *game, int x, int y, int clr)
-// {
-// 	char	*dst;
-
-// 	dst = game->img->addr[1] + ((y * game->img->size_len[1]) + x
-// 			* (game->img->bits_per_px[1] / 8));
-// 	*(unsigned int *)dst = clr;
-// }
-
 // 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
