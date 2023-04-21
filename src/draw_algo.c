@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:27:49 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/04/21 15:27:37 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/22 01:47:19 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	init_game_tsc(int x, t_game *game)
 	game->tsc.stepY = 0;
 	game->tsc.hit = 0;
 	game->tsc.side = 0;
-	game->tsc.wall = 0;		
+	game->tsc.wall = 0;
 }
 
 void	check_rays(t_game *game)

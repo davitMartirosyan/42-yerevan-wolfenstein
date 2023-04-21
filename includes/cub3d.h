@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 23:55:14 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/21 13:58:17 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/22 01:39:42 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,15 +116,14 @@ struct s_game
     char        *south;
     char        *west;
     char        *east;
-	char		*dir[4];
-	void		*addr[4];
+	void		*dir[4];
+	char		*addr[4];
     char        *map;
 	t_tsc		tsc;
     t_data      img;
     t_screen    *screen;
     t_player    *player;
 };
-
 
 struct s_screen
 {
