@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 03:19:25 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/04/21 13:44:04 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/22 02:25:33 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,12 @@ static void    set_player(t_game *game, int pos_dir)
 	else if (pos_dir == 35)
 		game->player->angle = 270;
 	else if (pos_dir == 39)
-		game->player->angle = 0;
-	else if (pos_dir == 21)
 		game->player->angle = 180;
+	else if (pos_dir == 21)
+		game->player->angle = 0;
 	else
 		game->player->angle = -1;
-	game->player->cdir = degree_to_radian(replace_angle_360(game->player->angle)); // 90 astichan depi verev
+	game->player->cdir = degree_to_radian(replace_angle_360(game->player->angle));
 	game->player->dir.x = cos(degree_to_radian(game->player->angle));
 	game->player->dir.y = -1 * sin(degree_to_radian(game->player->angle));
 	game->player->plane.x = -0.66 * game->player->dir.y;

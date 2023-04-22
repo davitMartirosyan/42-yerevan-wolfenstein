@@ -76,6 +76,29 @@ static int  check_top_bottom(char *board)
 
 
 
+int	s;
+	int	i;
+	int	bit_per_pixel[2];
+	int	line_size[2];
+	int	endian[2];
+	
+	game->dir[0] = mlx_xpm_file_to_image(game->screen->mlx, path(game->north), &i, &i);
+	game->dir[1] = mlx_xpm_file_to_image(game->screen->mlx, path(game->south), &i, &i);
+	game->dir[2] = mlx_xpm_file_to_image(game->screen->mlx, path(game->west), &i, &i);
+	game->dir[3] = mlx_xpm_file_to_image(game->screen->mlx, path(game->east), &i, &i);
+	free(game->north);
+	free(game->south);
+	free(game->west);
+	free(game->east);
+	s = 0;
+	while (s < 4)
+	{
+		if (!game->dir[s])
+			failure();
+		else
+			game->addr[s] = mlx_get_data_addr(game->dir[s], game->bpp, game->line_len, game->endian);
+		s++;
+	}
 
 
 

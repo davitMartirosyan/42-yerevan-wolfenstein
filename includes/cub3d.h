@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 23:55:14 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/22 01:39:42 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/22 07:00:11 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 #include "get_next_line.h"
 #include "../libft/libft.h"
 
-#define WIDTH 1920
-#define HEIGHT 1280
+#define WIDTH 600
+#define HEIGHT 600
 
 #define PI_HALF (PI / 2)            // 90 
 #define PI 3.1415926535             // 180
@@ -47,6 +47,7 @@ typedef struct s_game t_game;
 typedef struct s_player t_player;
 typedef struct s_vec t_vec;
 typedef struct s_data t_data;
+typedef struct s_texture t_texture;
 
 struct s_data
 {
@@ -55,7 +56,20 @@ struct s_data
     int     bpp;
     int     len;
     int     endian;
+	int		w;
+	int		h;
 };
+
+struct s_texture
+{
+	void	*file;
+	int		*img;
+	int		w;
+	int		h;
+	int		bpp;
+	int		size;
+	int		endian;
+};	
 
 struct s_vec
 {
@@ -121,6 +135,7 @@ struct s_game
     char        *map;
 	t_tsc		tsc;
     t_data      img;
+	t_texture	texture[4];
     t_screen    *screen;
     t_player    *player;
 };
@@ -158,6 +173,9 @@ void    play(t_game *game);
 void    draw(t_game *game);
 void	start_end(int x, t_game *game);
 void	mpp(t_data *data, int x, int y, int color);
+void	draw_textured_walls(int x, t_game *game);
+void	draw_sky(int x, t_game *game);
+void	draw_floor(int x, t_game *game);
 void	init_game_tsc(int x, t_game *game);
 void	check_rays(t_game *game);
 void	dda_algorithm_loop(t_game *game);
