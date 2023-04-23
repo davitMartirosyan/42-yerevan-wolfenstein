@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphic.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmkhitar <dmkhitar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 05:46:33 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/24 01:13:34 by dmkhitar         ###   ########.fr       */
+/*   Updated: 2023/04/24 01:35:54 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,20 @@ void	draw_textured_walls(int x, t_game *game)
 	t_texture	data;
 
 	y = game->tsc.drawStart - 1 ;
-	angle = atan2(game->tsc.rayDirY, game->tsc.rayDirX);
-	if (angle > 0 && angle < PI) // to the north
-		data = game->texture[0];
-	else if (angle > PI_HALF && angle < PI_3) // to the west
-		data = game->texture[2];
-	else if (angle < 0 || angle > PI_2) // to the south
-		data = game->texture[1];
-	else // to the east
-		data = game->texture[3];
+	if (game->tsc.side == 0) // Hit a vertical wall
+	{
+		if (game->tsc.rayDirX > 0) // Hit a wall facing West
+			data = game->texture[2];
+		else // Hit a wall facing East
+			data = game->texture[3];
+	}
+	else // Hit a horizontal wall
+	{
+		if (game->tsc.rayDirY > 0) // Hit a wall facing North
+			data = game->texture[0];
+		else // Hit a wall facing South
+			data = game->texture[1];
+	}
 
 	if (game->tsc.side == 0)
 		wall_x = game->player->pos.y + game->tsc.perpWallDist * game->tsc.rayDirY;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmkhitar <dmkhitar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 23:55:14 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/24 01:11:29 by dmkhitar         ###   ########.fr       */
+/*   Updated: 2023/04/24 01:26:02 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 
 #define PI_HALF (PI / 2)            // 90
 #define PI 3.1415926535             // 180
-#define PI_3 (3 * (PI_HALF / 2))    // 270
+#define PI_3 (3 * (PI_HALF))	    // 270
 #define PI_2 (PI * 2)               // 360
 #define SPEED 0.08
 #define ROT 0.05
