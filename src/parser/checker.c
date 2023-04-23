@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmkhitar <dmkhitar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 19:00:40 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/23 05:47:48 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/23 23:13:19 by dmkhitar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	check_board(t_game *game)
 {
 	int	x;
 	int	y;
-	
+
 	y = 0;
 	while (y < game->map_h)
 	{
@@ -51,7 +51,7 @@ void	check_dependancies(t_game *game)
 {
 	t_texture	*t;
 	int	i;
-	
+
 	t = game->texture;
 	t[0].file = mlx_xpm_file_to_image(game->screen->mlx, path(game->north), &t[0].w, &t[0].h);
 	t[1].file = mlx_xpm_file_to_image(game->screen->mlx, path(game->south), &t[1].w, &t[1].h);
@@ -63,5 +63,5 @@ void	check_dependancies(t_game *game)
 			failure();
 	i = -1;
 	while (++i < 4)
-		t[i].img = (int *)mlx_get_data_addr(t[i].file, &t[i].bpp, &t[i].size, &t[i].endian);
+		t[i].img = (char *)mlx_get_data_addr(t[i].file, &t[i].bpp, &t[i].size, &t[i].endian);
 }

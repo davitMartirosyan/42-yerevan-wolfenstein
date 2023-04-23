@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmkhitar <dmkhitar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 23:55:14 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/23 03:24:22 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/24 01:11:29 by dmkhitar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 #define WIDTH 1024
 #define HEIGHT 800
 
-#define PI_HALF (PI / 2)            // 90 
+#define PI_HALF (PI / 2)            // 90
 #define PI 3.1415926535             // 180
 #define PI_3 (3 * (PI_HALF / 2))    // 270
 #define PI_2 (PI * 2)               // 360
@@ -35,7 +35,7 @@
 #define IS_OPPENED 2
 /*
     Player Pos
-    N -> 30 -> {0, 1}       
+    N -> 30 -> {0, 1}
     S -> 35 -> {0, -1}
     W -> 39 -> {1, 0}
     E -> 21 -> {-1, 0}
@@ -58,18 +58,21 @@ struct s_data
     int     endian;
 	int		w;
 	int		h;
+
 };
 
 struct s_texture
 {
 	void	*file;
-	int		*img;
+	char	*img;
 	int		w;
 	int		h;
 	int		bpp;
 	int		size;
 	int		endian;
-};	
+    int     x;
+    int     y;
+};
 
 struct s_vec
 {
@@ -82,7 +85,7 @@ struct s_player
     t_vec   pos;
 	t_vec	old_dir;
     t_vec   dir;
-    t_vec   plane; 
+    t_vec   plane;
 	t_vec	old_plane;
 	double	angle;
 	double	cdir;
