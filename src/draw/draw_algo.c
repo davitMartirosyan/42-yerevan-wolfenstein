@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:27:49 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/04/22 06:46:39 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/23 05:14:00 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,6 @@ void	init_game_tsc(int x, t_game *game)
 	game->tsc.hit = 0;
 	game->tsc.side = 0;
 	game->tsc.wall = 0;
-	printf("************************\n");
-	printf("rayDirX: %f\n", game->tsc.rayDirX);
-	printf("rayDirY: %f\n", game->tsc.rayDirY);
-	printf("Angle: %f\n", atan2(game->tsc.rayDirX, game->tsc.rayDirY) * 180 / PI);
-	printf("************************\n");
-
 }
 
 void	check_rays(t_game *game)

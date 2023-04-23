@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 05:46:33 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/23 03:23:34 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/23 06:01:15 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	draw_textured_walls(int x, t_game *game)
 	double	wall_x;
 	t_texture	data;
 
-	y = game->tsc.drawStart - 1;
+	y = game->tsc.drawStart - 1 ;
 	angle = atan2(game->tsc.rayDirY, game->tsc.rayDirX);
 	if (angle > 0 && angle < PI) // to the north
 		data = game->texture[0];
@@ -68,6 +68,7 @@ void	draw_textured_walls(int x, t_game *game)
 		int	texture_pixel = (int)(texture_coord * data.h);
 		int color = *(data.img + (texture_pixel * data.size) + (int)(wall_x  * data.w) * (data.bpp / 8));
 		// game->img.data[y * WIDTH + x] = color;
+		// game->img.addr[y * WIDTH + x] = color;
 		mpp(&game->img, x, y, color);
 	}
 }
