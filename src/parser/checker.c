@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 19:00:40 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/22 06:27:55 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/23 03:01:07 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	check_dependancies(t_game *game)
 	
 	t = game->texture;
 	t[0].file = mlx_xpm_file_to_image(game->screen->mlx, path(game->north), &t[0].w, &t[0].h);
-	t[1].file = mlx_xpm_file_to_image(game->screen->mlx, path(game->north), &t[1].w, &t[1].h);
-	t[2].file = mlx_xpm_file_to_image(game->screen->mlx, path(game->north), &t[2].w, &t[2].h);
-	t[3].file = mlx_xpm_file_to_image(game->screen->mlx, path(game->north), &t[3].w, &t[3].h);
+	t[1].file = mlx_xpm_file_to_image(game->screen->mlx, path(game->south), &t[1].w, &t[1].h);
+	t[2].file = mlx_xpm_file_to_image(game->screen->mlx, path(game->west), &t[2].w, &t[2].h);
+	t[3].file = mlx_xpm_file_to_image(game->screen->mlx, path(game->east), &t[3].w, &t[3].h);
 	i = -1;
 	while (++i < 4)
 		if (!t[i].file)

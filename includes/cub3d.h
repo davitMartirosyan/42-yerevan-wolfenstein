@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 23:55:14 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/22 07:00:11 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/23 03:24:22 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 #include "get_next_line.h"
 #include "../libft/libft.h"
 
-#define WIDTH 600
-#define HEIGHT 600
+#define WIDTH 1024
+#define HEIGHT 800
 
 #define PI_HALF (PI / 2)            // 90 
 #define PI 3.1415926535             // 180

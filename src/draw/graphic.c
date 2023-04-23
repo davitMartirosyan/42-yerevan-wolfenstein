@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 05:46:33 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/22 06:59:51 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/23 03:23:34 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,28 +40,35 @@ void	mpp(t_data *data, int x, int y, int color)
 
 void	draw_textured_walls(int x, t_game *game)
 {
-	int	w;
-	
-	w = game->tsc.drawStart - 1;
-	while (++w < game->tsc.drawEnd)
+	int		y;
+	int		clr;
+	double	angle;
+	double	wall_x;
+	t_texture	data;
+
+	y = game->tsc.drawStart - 1;
+	angle = atan2(game->tsc.rayDirY, game->tsc.rayDirX);
+	if (angle > 0 && angle < PI) // to the north
+		data = game->texture[0];
+	else if (angle > PI_HALF && angle < PI_3) // to the west
+		data = game->texture[2];
+	else if (angle < 0 || angle > PI_2) // to the south
+		data = game->texture[1];
+	else // to the east
+		data = game->texture[3];
+		
+	if (game->tsc.side == 0)
+		wall_x = game->player->pos.y + game->tsc.perpWallDist * game->tsc.rayDirY;
+	else
+		wall_x = game->player->pos.x + game->tsc.perpWallDist * game->tsc.rayDirX;
+	wall_x -= floor(wall_x);
+	while (++y < game->tsc.drawEnd)
 	{
-		//Vertical Wall texturing
-		if (game->tsc.side == 0)
-		{
-			if (game->tsc.rayDirX > 0)
-				game->tsc.wallColor = 0xd11f78;
-			else
-				game->tsc.wallColor = 0x1f63d1;
-		}
-		//Horizontal Wall texturing
-		else
-		{
-			if (game->tsc.rayDirY > 0)
-				game->tsc.wallColor = 0x1fd184;
-			else
-				game->tsc.wallColor = 0xd1bc1f;
-		}
-		mpp(&game->img, x, w, game->tsc.wallColor);
+		double texture_coord = (y - game->tsc.drawStart) / (double)(game->tsc.drawEnd - game->tsc.drawStart);
+		int	texture_pixel = (int)(texture_coord * data.h);
+		int color = *(data.img + (texture_pixel * data.size) + (int)(wall_x  * data.w) * (data.bpp / 8));
+		// game->img.data[y * WIDTH + x] = color;
+		mpp(&game->img, x, y, color);
 	}
 }
 
