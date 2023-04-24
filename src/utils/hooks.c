@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 03:47:34 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/04/21 12:48:44 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/24 20:12:49 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,26 +50,25 @@ int	close_win(t_game *game)
 int	mouse_(int x, int y, t_game *game)
 {
 	t_vec	dir;
-	t_vec	plane;
-	
-	if (x )
+	t_vec	pl;
+
 	if (game->player->mouse_x > x)
 	{
 		dir = game->player->dir;
-		plane = game->player->plane;
-		game->player->dir.x = dir.x * cos(ROT_MOUSE * (-1)) - dir.y * sin(ROT_MOUSE * (-1));
-		game->player->dir.y = dir.x * sin(ROT_MOUSE * (-1)) + dir.y * cos(ROT_MOUSE * (-1));
-		game->player->plane.x = plane.x * cos(ROT_MOUSE * (-1)) - plane.y * sin(ROT_MOUSE * (-1));
-		game->player->plane.y = plane.x * sin(ROT_MOUSE * (-1)) + plane.y * cos(ROT_MOUSE * (-1));
+		pl = game->player->plane;
+		game->player->dir.x = dir.x * cos(R * (-1)) - dir.y * sin(R * (-1));
+		game->player->dir.y = dir.x * sin(R * (-1)) + dir.y * cos(R * (-1));
+		game->player->plane.x = pl.x * cos(R * (-1)) - pl.y * sin(R * (-1));
+		game->player->plane.y = pl.x * sin(R * (-1)) + pl.y * cos(R * (-1));
 	}
 	if (game->player->mouse_x < x)
 	{
 		dir = game->player->dir;
-		plane = game->player->plane;
-		game->player->dir.x = dir.x * cos(ROT_MOUSE) - dir.y * sin(ROT_MOUSE);
-		game->player->dir.y = dir.x * sin(ROT_MOUSE) + dir.y * cos(ROT_MOUSE);
-		game->player->plane.x = plane.x * cos(ROT_MOUSE) - plane.y * sin(ROT_MOUSE);
-		game->player->plane.y = plane.x * sin(ROT_MOUSE) + plane.y * cos(ROT_MOUSE);
+		pl = game->player->plane;
+		game->player->dir.x = dir.x * cos(R) - dir.y * sin(R);
+		game->player->dir.y = dir.x * sin(R) + dir.y * cos(R);
+		game->player->plane.x = pl.x * cos(R) - pl.y * sin(R);
+		game->player->plane.y = pl.x * sin(R) + pl.y * cos(R);
 	}
 	game->player->mouse_x = x;
 	draw(game);

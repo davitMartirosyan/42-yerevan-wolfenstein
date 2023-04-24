@@ -127,7 +127,7 @@ void	*mlx_int_parse_xpm(t_xvar *xvar,void *info,int info_size,char *(*f)())
   t_img	*img;
   t_xpm_col	*colors;
   int		*colors_direct;
-  int	width;
+  int	 W;
   int	height;
   XImage	*clip_img;
   XGCValues	xgcv;
@@ -139,7 +139,7 @@ void	*mlx_int_parse_xpm(t_xvar *xvar,void *info,int info_size,char *(*f)())
   tab = 0;
   pos = 0;
   if (!(line = f(info,&pos,info_size)) ||
-      !(tab = mlx_int_str_to_wordtab(line)) || !(width = atoi(tab[0])) ||
+      !(tab = mlx_int_str_to_wordtab(line)) || !( W = atoi(tab[0])) ||
       !(height = atoi(tab[1])) || !(nc = atoi(tab[2])) ||
       !(cpp = atoi(tab[3])) )
     RETURN;
@@ -172,12 +172,12 @@ void	*mlx_int_parse_xpm(t_xvar *xvar,void *info,int info_size,char *(*f)())
       
       if ((rgb_col = mlx_int_get_text_rgb(tab[j]))==-1)
 	{
-	  if (!(clip_data = malloc(4*width*height)) ||   /* ok, nice size .. */
+	  if (!(clip_data = malloc(4* W*height)) ||   /* ok, nice size .. */
 	      !(clip_img = XCreateImage(xvar->display, xvar->visual,
 					1, XYPixmap, 0, clip_data,
-					width, height, 8, (width+7)/8)) )
+					 W, height, 8, ( W+7)/8)) )
 	    RETURN;
-	  memset(clip_data, 0xFF, 4*width*height);
+	  memset(clip_data, 0xFF, 4* W*height);
 	}
 
       if (method)
@@ -191,7 +191,7 @@ void	*mlx_int_parse_xpm(t_xvar *xvar,void *info,int info_size,char *(*f)())
       free(tab);
     }
 
-  if (!(img = mlx_new_image(xvar,width,height)))
+  if (!(img = mlx_new_image(xvar, W,height)))
     RETURN;
   opp = img->bpp/8;
 
@@ -203,7 +203,7 @@ void	*mlx_int_parse_xpm(t_xvar *xvar,void *info,int info_size,char *(*f)())
       if (!(line = f(info,&pos,info_size)))
 	RETURN;
       x = 0;
-      while (x<width)
+      while (x< W)
 	{
 	  col = 0;
 	  col_name = mlx_int_get_col_name(line+cpp*x,cpp);
@@ -230,11 +230,11 @@ void	*mlx_int_parse_xpm(t_xvar *xvar,void *info,int info_size,char *(*f)())
   if (clip_data)
     {
       if (!(clip_pix = XCreatePixmap(xvar->display, xvar->root,
-					   width, height, 1)) )
+					    W, height, 1)) )
 	RETURN;
       img->gc = XCreateGC(xvar->display, clip_pix, 0, &xgcv);
       XPutImage(xvar->display, clip_pix, img->gc, clip_img,
-		0, 0, 0, 0, width, height);
+		0, 0, 0, 0,  W, height);
       XFreeGC(xvar->display, img->gc);
       xgcv.clip_mask = clip_pix;
       xgcv.function = GXcopy;
@@ -270,7 +270,7 @@ int	mlx_int_file_get_rid_comment(char *ptr, int size)
 }
 
 
-void	*mlx_xpm_file_to_image(t_xvar *xvar,char *file,int *width,int *height)
+void	*mlx_xpm_file_to_image(t_xvar *xvar,char *file,int * W,int *height)
 {
   int	fd;
   int	size;
@@ -289,7 +289,7 @@ void	*mlx_xpm_file_to_image(t_xvar *xvar,char *file,int *width,int *height)
   mlx_int_file_get_rid_comment(ptr, size);
   if (img = mlx_int_parse_xpm(xvar,ptr,size,mlx_int_get_line))
     {
-      *width = img->width;
+      * W = img-> W;
       *height = img->height;
     }
   munmap(ptr,size);
@@ -297,13 +297,13 @@ void	*mlx_xpm_file_to_image(t_xvar *xvar,char *file,int *width,int *height)
   return (img);
 }
 
-void	*mlx_xpm_to_image(t_xvar *xvar,char **xpm_data,int *width,int *height)
+void	*mlx_xpm_to_image(t_xvar *xvar,char **xpm_data,int * W,int *height)
 {
   t_img	*img;
 
   if (img = mlx_int_parse_xpm(xvar,xpm_data,0,mlx_int_static_line))
     {
-      *width = img->width;
+      * W = img-> W;
       *height = img->height;
     }
   return (img);

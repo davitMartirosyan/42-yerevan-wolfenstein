@@ -26,12 +26,12 @@ int	mlx_put_image_to_window(t_xvar *xvar,t_win_list *win,t_img *img,
     }
   if (img->type==MLX_TYPE_SHM)
     XShmPutImage(xvar->display,img->pix, win->gc, img->image,0,0,0,0,
-		 img->width,img->height,False);
+		 img-> W,img->height,False);
   if (img->type==MLX_TYPE_XIMAGE)
     XPutImage(xvar->display,img->pix, win->gc, img->image,0,0,0,0,
-	      img->width,img->height);
+	      img-> W,img->height);
   XCopyArea(xvar->display,img->pix,win->window, gc,
-	    0,0,img->width,img->height,x,y);
+	    0,0,img-> W,img->height,x,y);
   if (xvar->do_flush)
     XFlush(xvar->display);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmkhitar <dmkhitar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 19:00:40 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/23 23:13:19 by dmkhitar         ###   ########.fr       */
+/*   Updated: 2023/04/24 19:30:56 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	check_board(t_game *game)
 		while (x < game->map_w)
 		{
 			if (game->mmap[y][x] == 0)
-				if (!checkall(game->mmap, y, x, game->map_w - 1, game->map_h - 1))
+				if (!checkall(game->mmap, y, x, game->map_h - 1))
 					return (0);
 			x++;
 		}
@@ -33,7 +33,7 @@ int	check_board(t_game *game)
 	return (1);
 }
 
-int	checkall(int **mmap, int y, int x, int w, int h)
+int	checkall(int **mmap, int y, int x, int h)
 {
 	if (y == 0 || y == h)
 		return (0);
@@ -50,18 +50,23 @@ int	checkall(int **mmap, int y, int x, int w, int h)
 void	check_dependancies(t_game *game)
 {
 	t_texture	*t;
-	int	i;
+	int			i;
 
 	t = game->texture;
-	t[0].file = mlx_xpm_file_to_image(game->screen->mlx, path(game->north), &t[0].w, &t[0].h);
-	t[1].file = mlx_xpm_file_to_image(game->screen->mlx, path(game->south), &t[1].w, &t[1].h);
-	t[2].file = mlx_xpm_file_to_image(game->screen->mlx, path(game->west), &t[2].w, &t[2].h);
-	t[3].file = mlx_xpm_file_to_image(game->screen->mlx, path(game->east), &t[3].w, &t[3].h);
+	t[0].file = mlx_xpm_file_to_image(game->screen->mlx,
+			path(game->north), &t[0].w, &t[0].h);
+	t[1].file = mlx_xpm_file_to_image(game->screen->mlx,
+			path(game->south), &t[1].w, &t[1].h);
+	t[2].file = mlx_xpm_file_to_image(game->screen->mlx,
+			path(game->west), &t[2].w, &t[2].h);
+	t[3].file = mlx_xpm_file_to_image(game->screen->mlx,
+			path(game->east), &t[3].w, &t[3].h);
 	i = -1;
 	while (++i < 4)
 		if (!t[i].file)
 			failure();
 	i = -1;
 	while (++i < 4)
-		t[i].img = (char *)mlx_get_data_addr(t[i].file, &t[i].bpp, &t[i].size, &t[i].endian);
+		t[i].img = (char *)mlx_get_data_addr(t[i].file, &t[i].bpp,
+				&t[i].size, &t[i].endian);
 }
