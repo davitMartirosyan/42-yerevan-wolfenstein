@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 03:47:34 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/04/25 19:06:15 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/25 19:26:35 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	esc(int keycode, t_game *game)
 {
 	if (keycode == 53)
 	{
+		mlx_destroy_image(game->screen->mlx, game->img.img);
 		mlx_destroy_window(game->screen->mlx, game->screen->win);
 		exit(0);
 	}
@@ -42,6 +43,7 @@ int	esc(int keycode, t_game *game)
 
 int	close_win(t_game *game)
 {
+	mlx_destroy_image(game->screen->mlx, game->img.img);
 	mlx_destroy_window(game->screen->mlx, game->screen->win);
 	exit(0);
 	return (0);
