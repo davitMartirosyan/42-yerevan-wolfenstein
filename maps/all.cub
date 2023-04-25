@@ -1,7 +1,7 @@
-NO textures/bluestone.xpm
-SO textures/colorstone.xpm
-WE textures/greystone.xpm
-EA textures/mossy.xpm
+NO textures/xpm/bluestone.xpm
+SO textures/xpm/inesstone.xpm
+WE textures/xpm/purplestone.xpm
+EA textures/xpm/yellowstone.xpm
 
 F  112,112,112
 C  56,56,56

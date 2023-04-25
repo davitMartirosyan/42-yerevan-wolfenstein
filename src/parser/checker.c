@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 19:00:40 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/24 19:30:56 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/25 22:13:31 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,14 @@ int	checkall(int **mmap, int y, int x, int h)
 		|| mmap[y + 1][x] == -1
 		|| mmap[y][x - 1] == -1
 		|| mmap[y][x + 1] == -1)
+		return (0);
+	return (1);
+}
+
+int	isprops(int **mmap, int y, int x)
+{
+	if (mmap[y][x] != 'N' || mmap[y][x] != 'S'
+		|| mmap[y][x] != 'W' || mmap[y][x] != 'E')
 		return (0);
 	return (1);
 }

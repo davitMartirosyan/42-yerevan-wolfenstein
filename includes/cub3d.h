@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 23:55:14 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/25 18:45:50 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/25 22:13:43 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,6 +175,7 @@ int		check_board(t_game *game);
 int		checkall(int **mmap, int y, int x, int h);
 int		*set_matrix_line(char *strline, int map_w);
 int		rgb_tohex(int r, int g, int b);
+int		isprops(int **mmap, int y, int x);
 
 char	**create_map_buffer(char *filename);
 char	*set_map(char *s1, int delimiter, char *s2);

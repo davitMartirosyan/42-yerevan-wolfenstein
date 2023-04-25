@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 03:19:25 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/04/24 19:57:27 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/25 22:18:03 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,19 @@ static int	x_val(t_game *game, int x, int y, int *shooter)
 {
 	while (x < game->map_w)
 	{
-		if (game->mmap[y][x] == 30 || game->mmap[y][x] == 35
-			|| game->mmap[y][x] == 39 || game->mmap[y][x] == 21)
+		if (game->mmap[y][x] > 1
+			&& (game->mmap[y][x] == 30 || game->mmap[y][x] == 35
+			|| game->mmap[y][x] == 39 || game->mmap[y][x] == 21))
 		{
 			if (!checkall(game->mmap, y, x, game->map_h - 1))
 				return (0);
 			set_player(game, game->mmap[y][x], x, y);
 			*shooter += 1;
 		}
+		else if (game->mmap[y][x] > 1
+		&& (game->mmap[y][x] != 30 || game->mmap[y][x] != 35
+			|| game->mmap[y][x] != 39 || game->mmap[y][x] != 21))
+			*shooter += 1;
 		x++;
 	}
 	return (1);
