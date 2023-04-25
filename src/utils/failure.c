@@ -6,16 +6,16 @@
 /*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 00:08:18 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/14 06:28:48 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/04/24 20:04:51 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void    failure(void)
+void	failure(void)
 {
-    write(1, "Error!\n", 7);
-    exit(1);
+	write(1, "Error!\n", 7);
+	exit(1);
 }
 
 void	free_char_pp(char ***pp)

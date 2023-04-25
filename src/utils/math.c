@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   math.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/24 20:11:42 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/04/24 19:05:23 by dmartiro         ###   ########.fr       */
+/*   Created: 2023/04/19 18:35:23 by dmartiro          #+#    #+#             */
+/*   Updated: 2023/04/24 20:17:52 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "cub3d.h"
 
-size_t	ft_strlen(const char *c)
+double	degree_to_radian(double degree)
 {
-	size_t	i;
+	return (degree * PI / 180.0);
+}
 
-	i = 0;
-	while (c && c[i] != '\0')
-		i++;
-	return (i);
+double	replace_angle_360(double angle)
+{
+	if (angle > 360)
+		angle = angle - 360;
+	else if (angle < 0)
+		angle = angle + 360;
+	return (angle);
 }

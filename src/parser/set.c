@@ -3,31 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   set.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tumolabs <tumolabs@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 18:28:17 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/16 00:12:29 by tumolabs         ###   ########.fr       */
+/*   Updated: 2023/04/24 20:24:05 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int *set_matrix_line(char *strline, int map_width)
+int	*set_matrix_line(char *strline, int map_w)
 {
-    int i;
-    int *map_line;
+	int	i;
+	int	*map_line;
 
-    map_line = malloc(sizeof(int) * map_width);
-    i = 0;
-    while (i <= map_width)
-    {
-        if (i < (int)ft_strlen(strline) && !ft_isspace(strline[i]))
-            map_line[i] = strline[i] - '0';
-        else if (i >= (int)ft_strlen(strline) || ft_isspace(strline[i]))
-            map_line[i] = -1;
-        i++;
-    }
-    return (map_line);
+	map_line = malloc(sizeof(int) * map_w);
+	i = 0;
+	while (i <= map_w)
+	{
+		if (i < (int)ft_strlen(strline) && !ft_isspace(strline[i]))
+			map_line[i] = strline[i] - '0';
+		else if (i >= (int)ft_strlen(strline) || ft_isspace(strline[i]))
+			map_line[i] = -1;
+		i++;
+	}
+	return (map_line);
 }
 
 char	*set_map(char *s1, int delimiter, char *s2)
@@ -58,55 +58,50 @@ char	*set_map(char *s1, int delimiter, char *s2)
 	return (arguments);
 }
 
-void    set_instances(t_game *game)
+void	set_instances(t_game *game)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (game->sdl[i])
-    {
-        if (contains(game->sdl[i], ".xpm"))
-        {
-            put_textures(game, i);
-            game->news++;
-        }
-        else if (contains(game->sdl[i], ","))
-        {
-            put_colors(game, i);
-            game->colors++;
-        }
-        else
-            game->map = set_map(game->map, '\n', game->sdl[i]);   
-        i++;
-    }
-    if (game->news != 4 || game->colors != 2 || !game->north || !game->south
-        || !game->west || !game->east || !game->map)
-        failure();
+	i = 0;
+	while (game->sdl[i])
+	{
+		if (contains(game->sdl[i], ".xpm"))
+		{
+			put_textures(game, i);
+			game->news++;
+		}
+		else if (contains(game->sdl[i], ","))
+		{
+			put_colors(game, i);
+			game->colors++;
+		}
+		else
+			game->map = set_map(game->map, '\n', game->sdl[i]);
+		i++;
+	}
+	if (game->news != 4 || game->colors != 2 || !game->north || !game->south
+		|| !game->west || !game->east || !game->map)
+		failure();
 }
 
-void    set_matrix(t_game *game)
+void	set_matrix(t_game *game)
 {
-    char    **split;
-    
-    split = ft_split(game->map, '\n');
-    get_map_sizes(game, split);
-    if (!check_board(game, split))
-    {
-        free_char_pp(&split);
-        failure();
-    }
-    set_int_matrix(game, split);
-    free_char_pp(&split);
+	char	**split;
+
+	split = ft_split(game->map, '\n');
+	get_map_sizes(game, split);
+	set_int_matrix(game, split);
+	free_char_pp(&split);
 }
 
-void    set_int_matrix(t_game *game, char **split)
+void	set_int_matrix(t_game *game, char **split)
 {
-    int i;
+	int	i;
 
-    i = -1;
-    game->mmap = malloc(sizeof(int *) * game->map_h);
-    if (!game->mmap)
-        failure();
-    while (split[++i])
-        game->mmap[i] = set_matrix_line(split[i], game->map_w);
+	i = -1;
+	game->mmap = malloc(sizeof(int *) * game->map_h);
+	if (!game->mmap)
+		failure();
+	while (split[++i])
+		game->mmap[i] = set_matrix_line(split[i], game->map_w);
 }

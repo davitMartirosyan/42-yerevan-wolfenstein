@@ -14,7 +14,7 @@
 
 
 
-void		*mlx_int_xpm_f_image(t_xvar *xvar,int *width,int *height,
+void		*mlx_int_xpm_f_image(t_xvar *xvar,int * W,int *height,
 				     int (*xpm_func)(),void *param)
 {
   XImage	*img1;
@@ -32,12 +32,12 @@ void		*mlx_int_xpm_f_image(t_xvar *xvar,int *width,int *height,
   if (img2)
     XDestroyImage(img2);
 
-  if (!(im2 = (void *)mlx_new_image(xvar,img1->width,img1->height)))
+  if (!(im2 = (void *)mlx_new_image(xvar,img1-> W,img1->height)))
     {
       XDestroyImage(img1);
       return ((void *)0);
     }
-  *width = img1->width;
+  * W = img1-> W;
   *height = img1->height;
   if (mlx_int_egal_img(im2->image,img1))
     {
@@ -49,7 +49,7 @@ void		*mlx_int_xpm_f_image(t_xvar *xvar,int *width,int *height,
     {
       XFreePixmap(xvar->display,im2->pix);
       im2->pix = XCreatePixmap(xvar->display,xvar->root,
-			       *width,*height,xvar->depth);
+			       * W,*height,xvar->depth);
     }
   if (im2->type>MLX_TYPE_XIMAGE)
     {
@@ -68,7 +68,7 @@ void		*mlx_int_xpm_f_image(t_xvar *xvar,int *width,int *height,
 
 int	mlx_int_egal_img(XImage *img1,XImage *img2)
 {
-  if (img1->width!=img2->width || img1->height!=img2->height ||
+  if (img1-> W!=img2-> W || img1->height!=img2->height ||
       img1->xoffset!=img2->xoffset || img1->format!=img2->format ||
       img1->byte_order!=img2->byte_order ||
       img1->bitmap_unit!=img2->bitmap_unit ||
@@ -84,13 +84,13 @@ int	mlx_int_egal_img(XImage *img1,XImage *img2)
 
 
 void	*mlx_xpm_file_to_image(t_xvar *xvar,char *filename,
-			       int *width,int *height)
+			       int * W,int *height)
 {
-  return (mlx_int_xpm_f_image(xvar,width,height,XpmReadFileToImage,filename));
+  return (mlx_int_xpm_f_image(xvar, W,height,XpmReadFileToImage,filename));
 }
 
 
-void	*mlx_xpm_to_image(t_xvar *xvar,char **data,int *width,int *height)
+void	*mlx_xpm_to_image(t_xvar *xvar,char **data,int * W,int *height)
 {
-  return (mlx_int_xpm_f_image(xvar,width,height,XpmCreateImageFromData,(void *)data));
+  return (mlx_int_xpm_f_image(xvar, W,height,XpmCreateImageFromData,(void *)data));
 }

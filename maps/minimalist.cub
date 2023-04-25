@@ -1,21 +1,14 @@
-NO ./xpm/hyusis.xpm
-SO ./haraf.xpm
-WE ./arevmutq.xpm
-EA ./arevelq.xpm
+NO ./textures/xpm/bluestone.xpm
+SO ./textures/xpm/yellowstone.xpm
+WE ./textures/xpm/inesstone.xpm
+EA ./textures/xpm/purplestone.xpm
 
-F 220,100,0
-C 225,30,0
+F 149,228,255
+C 82, 82, 82
 
-
-1
-11
-101
-1001
-10001
-10001
-1N001
-100001
-1000011111
-1000000001
-100010011
-111111111
+11111111
+10000001
+10000001
+10000001
+10N00001
+11111111
