@@ -1,7 +1,7 @@
 NO ./textures/xpm/bluestone.xpm
-SO ./textures/xpm/colorstone.xpm
-WE ./textures/xpm/redbrick.xpm
-EA ./textures/xpm/wood.xpm
+SO ./textures/xpm/yellowstone.xpm
+WE ./textures/xpm/inesstone.xpm
+EA ./textures/xpm/purplestone.xpm
 
 F 149,228,255
 C 82, 82, 82
