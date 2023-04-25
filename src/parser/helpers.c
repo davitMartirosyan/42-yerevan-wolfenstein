@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 06:31:41 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/24 19:36:26 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/25 19:06:27 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 char	*path(char *line)
 {
 	int		i;
-	char	*nav;
 
 	i = ft_strlen(line) - 1;
 	while (i--)
@@ -37,7 +36,7 @@ int	contains(char *source, char *find)
 		{
 			j = 0;
 			k = i;
-			while (source[k] == find[j] && j < ft_strlen(find))
+			while (source[k] == find[j] && j < (int)ft_strlen(find))
 			{
 				k++;
 				j++;
@@ -45,7 +44,7 @@ int	contains(char *source, char *find)
 		}
 		i++;
 	}
-	if (j == ft_strlen(find))
+	if (j == (int)ft_strlen(find))
 		return (1);
 	return (0);
 }
@@ -83,15 +82,18 @@ char	**create_map_buffer(char *filename)
 		failure();
 	line = get_next_line(fd);
 	buffer = ft_strjoin(buffer, line);
-	while (line != NULL)
+	free(line);
+	while (1)
 	{
-		free(line);
 		line = get_next_line(fd);
+		if (line == NULL)
+			break ;
 		buffer = ft_strjoin(buffer, line);
+		free(line);
 	}
-	split = ft_split(buffer, '\n');
-	free(buffer);
 	free(line);
 	close(fd);
+	split = ft_split(buffer, '\n');
+	free(buffer);
 	return (split);
 }

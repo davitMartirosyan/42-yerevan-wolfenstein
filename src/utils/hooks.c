@@ -6,7 +6,7 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 03:47:34 by dmartiro          #+#    #+#             */
-/*   Updated: 2023/04/24 20:12:49 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/25 19:06:15 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	mouse_(int x, int y, t_game *game)
 	t_vec	dir;
 	t_vec	pl;
 
+	(void)y;
 	if (game->player->mouse_x > x)
 	{
 		dir = game->player->dir;

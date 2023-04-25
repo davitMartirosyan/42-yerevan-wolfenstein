@@ -6,38 +6,38 @@
 /*   By: dmartiro <dmartiro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 23:55:14 by tumolabs          #+#    #+#             */
-/*   Updated: 2023/04/24 20:39:36 by dmartiro         ###   ########.fr       */
+/*   Updated: 2023/04/25 18:45:50 by dmartiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
-#define CUB3D_H
-#include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <sys/types.h>
-#include <stdlib.h>
-#include "../mlx/mlx.h"
-#include "get_next_line.h"
-#include "../libft/libft.h"
-#define W 1024
-#define H 800
-#define PI_HALF (PI / 2)
-#define PI 3.1415926535
-#define PI_3 (3 * (PI_HALF))
-#define PI_2 (PI * 2)
-#define SPEED 0.08
-#define ROT 0.05
-#define R 0.09
-#define IS_INVALID 1
-#define IS_VALID 0
-#define IS_OPPENED 2
+# define CUB3D_H
+# include <stdio.h>
+# include <string.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <sys/types.h>
+# include <stdlib.h>
+# include "../mlx/mlx.h"
+# include "get_next_line.h"
+# include "../libft/libft.h"
+# define W 1024
+# define H 800
+# define PI_HALF 1.57079632675
+# define PI 3.1415926535
+# define PI_3 4.71238898025
+# define PI_2 6.28318530718
+# define SPEED 0.08
+# define ROT 0.05
+# define R 0.09
+# define IS_INVALID 1
+# define IS_VALID 0
+# define IS_OPPENED 2
 
 typedef struct s_screen		t_screen;
 typedef struct s_tsc		t_tsc;
-typedef struct s_game 		t_game;
-typedef struct s_player 	t_player;
+typedef struct s_game		t_game;
+typedef struct s_player		t_player;
 typedef struct s_vec		t_vec;
 typedef struct s_data		t_data;
 typedef struct s_texture	t_texture;
@@ -46,11 +46,11 @@ typedef struct s_getmath	t_getmath;
 
 struct	s_data
 {
-    void	*img;
-    char	*addr;
-    int		bpp;
-    int		len;
-    int		endian;
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		len;
+	int		endian;
 	int		w;
 	int		h;
 };
@@ -64,8 +64,8 @@ struct	s_texture
 	int		bpp;
 	int		size;
 	int		endian;
-    int		x;
-    int		y;
+	int		x;
+	int		y;
 };
 
 struct	s_vec
@@ -78,8 +78,8 @@ struct	s_player
 {
 	t_vec	pos;
 	t_vec	old_dir;
-    t_vec	dir;
-    t_vec	plane;
+	t_vec	dir;
+	t_vec	plane;
 	t_vec	old_plane;
 	double	angle;
 	double	cdir;
@@ -108,58 +108,58 @@ struct s_getmath
 
 struct s_tsc
 {
-    double	cameraX;
-    double	rayDirX;
-    double	rayDirY;
-    double	sideDistX;
-    double	sideDistY;
-    double	deltaDistX;
-    double	deltaDistY;
-    double  perpWallDist;
-	int		lineHeight;
-	int		drawStart;
-	int		drawEnd;
-    int		mapX;
-    int		mapY;
-    int		stepX;
-    int		stepY;
-    int		hit;
-    int		side;
-	int		wallColor;
+	double	camera_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+	int		mapx;
+	int		mapy;
+	int		stepx;
+	int		stepy;
+	int		hit;
+	int		side;
+	int		wall_color;
 	int		wall;
 };
 
 struct s_game
 {
-    int         map_h;
-    int         map_w;
-    int         floor_color;
-    int         ceiling_color;
-    int         **mmap;
-    int         news;
-    int         colors;
+	int			map_h;
+	int			map_w;
+	int			floor_color;
+	int			ceiling_color;
+	int			**mmap;
+	int			news;
+	int			colors;
 	int			bpp[2];
 	int			endian[2];
 	int			line_len[2];
-    char        **sdl;
-    char        *north;
-    char        *south;
-    char        *west;
-    char        *east;
+	char		**sdl;
+	char		*north;
+	char		*south;
+	char		*west;
+	char		*east;
 	void		*dir[4];
 	char		*addr[4];
-    char        *map;
+	char		*map;
 	t_tsc		tsc;
-    t_data      img;
+	t_data		img;
 	t_texture	texture[4];
-    t_screen    *screen;
-    t_player    *player;
+	t_screen	*screen;
+	t_player	*player;
 };
 
 struct s_screen
 {
-    void	*mlx;
-    void	*win;
+	void	*mlx;
+	void	*win;
 };
 
 t_game	*init(void);
