@@ -2,18 +2,6 @@
 
 Welcome to the 3D Wolfenstein game project! This is a modern reimplementation of the classic Wolfenstein 3D game, written in C.
 
-## Table of Contents
-
-- [About the Project](#about-the-project)
-- [Features](#features)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#usage)
-- [Screenshots](#screenshots)
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
 
 ## About the Project
 
@@ -24,7 +12,7 @@ This project aims to recreate the iconic Wolfenstein 3D game using the C program
 - Classic Wolfenstein 3D gameplay
 - 3D graphics rendering
 - Multiple levels with increasing difficulty
-- Enemy AI and combat mechanics
+- Enemy and combat mechanics
 - Collectible items and power-ups
 
 ## Getting Started
@@ -45,4 +33,8 @@ Make sure you have the following tools installed on your system:
    ```
    git clone https://github.com/yourusername/42-yerevan-wolfenstein.git
    cd 42-yerevan-wolfenstein
+   make
+   ```
+   ```
+   ./cub3d maps/map_file_name
    ```
